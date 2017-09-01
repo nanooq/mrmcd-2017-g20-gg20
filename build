@@ -1,0 +1,38 @@
+#! /bin/sh
+
+### Copyright (C) 2017 Peter Maucher
+### This script is very trivial, therefore licensed under the WTFPL:
+#            DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+#                    Version 2, December 2004
+#
+# Copyright (C) 2004 Sam Hocevar
+#  14 rue de Plaisance, 75014 Paris, France
+# Everyone is permitted to copy and distribute verbatim or modified
+# copies of this license document, and changing it is allowed as long
+# as the name is changed.
+#
+#            DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+#   TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
+#
+#  0. You just DO WHAT THE FUCK YOU WANT TO.
+
+
+### USAGE: this script expects a tex file as a parameter
+### or otherwise tries to guess the name of the latex file to main.tex
+### EXAMPLE: (with main.tex present)
+### ./build 
+### EXAMPLE: (to build a tex file which is not main.tex)
+### ./build example.tex
+### both versions output into a pdf file which substitues *.tex to *.pdf
+### no need to recompile, latexmk automagically runs latex as many times as needed
+### if something really does not work, remove all temporary files (usually unneeded)
+
+
+if [ -z "${1}" ]; then
+    TO_COMPILE=main.tex
+else
+    TO_COMPILE="${1}"
+fi
+
+latexmk -pdflatex=pdflatex -shell-escape -pdf "${TO_COMPILE}" -f
+
